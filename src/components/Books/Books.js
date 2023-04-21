@@ -1,8 +1,10 @@
+import "./Books.css";
+
 import BookItem from "../BookItem/BookItem";
 
 const Books = ({ books }) => {
   return (
-    <>
+    <div className="books">
       <BookItem
         bookTitle={books[0].title}
         bookAuthor={books[0].author}
@@ -27,7 +29,7 @@ const Books = ({ books }) => {
         bookDateRead={books[3].dateRead}
         bookPageCount={books[3].pageCount}
       />
-    </>
+    </div>
   );
 };
 

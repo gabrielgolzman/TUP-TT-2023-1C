@@ -2,10 +2,16 @@ import "./NewBook.css";
 
 import BookForm from "../BookForm/BookForm";
 
-const NewBook = () => {
+const NewBook = ({onBookAdded}) => {
+
+  const onBookAddedHandler = (book) => {
+    console.log(book);
+    console.log("In new Book");
+    onBookAdded(book);
+  }
   return (
     <div className="new-book">
-      <BookForm />
+      <BookForm onBookAdded={onBookAddedHandler} />
     </div>
   );
 };

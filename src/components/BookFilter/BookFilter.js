@@ -1,20 +1,12 @@
-import { useState } from "react";
 import "./BookFilter.css";
 
-const BooksFilter = ({ onFilterYear }) => {
-  const [yearSelected, setYearSelected] = useState("");
-
-  const yearSelectionHandler = (event) => {
-    setYearSelected(event.target.value);
-    onFilterYear(event.target.value);
-  };
-
+const BooksFilter = () => {
+ 
   return (
     <div className="Books-filter">
-      <p>Seleccionaste el año: {yearSelected}</p>
       <div className="Books-filter__control">
         <label>Filter by year</label>
-        <select onChange={yearSelectionHandler}>
+        <select >
           <option value="">Seleccione un año</option>
           <option value="2023">2023</option>
           <option value="2022">2022</option>

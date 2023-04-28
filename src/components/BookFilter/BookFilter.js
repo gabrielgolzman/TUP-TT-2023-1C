@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 import "./BookFilter.css";
 
 const BooksFilter = ({ onFilterYearChange, filterYear }) => {

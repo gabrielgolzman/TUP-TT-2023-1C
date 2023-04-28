@@ -38,16 +38,24 @@ const BOOKS = [
 
 const App = () => {
   const [books, setBooks] = useState(BOOKS);
+  const [filterYear, setFilterYear] = useState("2023");
 
   const addBookHandler = (book) => {
     setBooks([book, ...books]);
   };
 
+  const filterYearChanged = (year) => {
+    setFilterYear(year);
+  };
+
   return (
     <div className="App">
       <NewBook onBookAdded={addBookHandler} />
-      <BooksFilter />
-      <Books books={books} />
+      <BooksFilter
+        filterYear={filterYear}
+        onFilterYearChange={filterYearChanged}
+      />
+      <Books filterYear={filterYear} books={books} />
     </div>
   );
 };

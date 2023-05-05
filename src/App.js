@@ -4,6 +4,7 @@ import "./App.css";
 import Books from "./components/Books/Books";
 import NewBook from "./components/NewBook/NewBook";
 import BooksFilter from "./components/BookFilter/BookFilter";
+import Login from "./components/Login/Login";
 
 const BOOKS = [
   {
@@ -50,12 +51,13 @@ const App = () => {
 
   return (
     <div className="App">
-      <NewBook onBookAdded={addBookHandler} />
+      {/* <NewBook onBookAdded={addBookHandler} />
       <BooksFilter
         filterYear={filterYear}
         onFilterYearChange={filterYearChanged}
       />
-      <Books filterYear={filterYear} books={books} />
+      <Books filterYear={filterYear} books={books} /> */}
+      <Login />
     </div>
   );
 };

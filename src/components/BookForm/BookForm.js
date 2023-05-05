@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./BookForm.css";
 
-const BookForm = ({ onBookAdded }) => {
+const BookForm = ({ onBookAdded, onHideForm }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [dateRead, setDateRead] = useState("");
@@ -33,6 +33,11 @@ const BookForm = ({ onBookAdded }) => {
       pageCount,
     };
     onBookAdded(newBook);
+  };
+
+  const hideFormHandler = (event) => {
+    event.preventDefault();
+    onHideForm();
   };
 
   return (
@@ -76,6 +81,7 @@ const BookForm = ({ onBookAdded }) => {
         </div>
       </div>
       <div className="new-book-actions">
+        <button onClick={hideFormHandler}>Cancelar</button>
         <button onClick={addBookHandler}>Agregar lectura</button>
       </div>
     </form>

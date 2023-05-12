@@ -1,8 +1,9 @@
 import React, { useRef, useState } from "react";
 
 import "./Login.css";
+import { useNavigate } from "react-router";
 
-const Login = () => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
   const [errors, setErrors] = useState([
     { text: "Email no puede ser vacio", isError: false },
@@ -11,6 +12,8 @@ const Login = () => {
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const navigation = useNavigate();
 
   const emailChangeHandler = (e) => {
     setEmail(e.target.value);
@@ -32,16 +35,15 @@ const Login = () => {
     }
 
     if (passwordRef.current.value.length === 0) {
-      console.log("here");
       passwordRef.current.focus();
       const newErrors = [...errors];
       newErrors[1].isError = true;
       setErrors(newErrors);
       return;
     }
-    alert(
-      `Su email ${email} y su password ${passwordRef.current.value} han sido registrados`
-    );
+
+    onLogin();
+    navigation("/home");
   };
 
   return (

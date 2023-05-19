@@ -3,6 +3,10 @@ import "./Books.css";
 import BookItem from "../BookItem/BookItem";
 
 const Books = ({ books, filterYear }) => {
+  if (books.length === 0) {
+    return <></>;
+  }
+
   const booksMapped = books
     .filter((book) => book.dateRead.getFullYear().toString() === filterYear)
     .map((book) => (

@@ -38,24 +38,40 @@ const BOOKS = [
 ];
 
 const Dashboard = ({ onLogout }) => {
-  const [books, setBooks] = useState(BOOKS);
+  const [books, setBooks] = useState([]);
   const [filterYear, setFilterYear] = useState("2023");
   console.log("In Dashboard!");
 
   useEffect(() => {
     console.log("useEffect on mount");
-    const bookStoraged = JSON.parse(localStorage.getItem("books"));
+    debugger;
+    // const bookStoraged = JSON.parse(localStorage.getItem("books"));
 
-    if (bookStoraged) {
-      setBooks(
-        bookStoraged.map((book) => ({
+    // if (bookStoraged) {
+    //   setBooks(
+    //     bookStoraged.map((book) => ({
+    //       ...book,
+    //       dateRead: new Date(book.dateRead),
+    //     }))
+    //   );
+    // } else {
+    //   localStorage.setItem("books", JSON.stringify(BOOKS));
+    // }
+
+    fetch("https://63a44a012a73744b0072f847.mockapi.io/api/books/Books", {
+      headers: {
+        accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((bookData) => {
+        const booksMapped = bookData.map((book) => ({
           ...book,
           dateRead: new Date(book.dateRead),
-        }))
-      );
-    } else {
-      localStorage.setItem("books", JSON.stringify(BOOKS));
-    }
+        }));
+        setBooks(booksMapped);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
   const navigation = useNavigate();

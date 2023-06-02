@@ -1,7 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 
 import "./Login.css";
 import { useNavigate } from "react-router";
+import { AuthenticationContext } from "../services/authentication/authentication.context";
+import ToggleTheme from "../ui/ToggleTheme";
+import { ThemeContext } from "../services/theme/theme.context";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -9,6 +12,9 @@ const Login = ({ onLogin }) => {
     { text: "Email no puede ser vacio", isError: false },
     { text: "Password no puede ser vacio", isError: false },
   ]);
+
+  const { handleLogin } = useContext(AuthenticationContext);
+  const { theme } = useContext(ThemeContext);
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
@@ -42,13 +48,13 @@ const Login = ({ onLogin }) => {
       return;
     }
 
-    onLogin();
+    handleLogin(email);
     navigation("/home");
   };
 
   return (
     <div className="login-container">
-      <div className="login-box">
+      <div className={`login-box ${theme === "dark" && "login-box-dark"}`}>
         <h4 className={`${email.length === 0 && "red-text"}`}>
           ¡Bienvenidos a Book Champions!
         </h4>
@@ -75,6 +81,7 @@ const Login = ({ onLogin }) => {
         <button onClick={signInHandler} className="signin-button" type="button">
           Iniciar sesión
         </button>
+        <ToggleTheme />
       </div>
     </div>
   );

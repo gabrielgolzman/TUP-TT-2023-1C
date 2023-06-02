@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import NewBook from "../NewBook/NewBook";
 import BooksFilter from "../BookFilter/BookFilter";
 import Books from "../Books/Books";
 import { useNavigate } from "react-router";
 import { Button, Col, Row } from "react-bootstrap";
+import { AuthenticationContext } from "../services/authentication/authentication.context";
+import ToggleTheme from "../ui/ToggleTheme";
+import { APIContext } from "../services/api/api.context";
 
 const BOOKS = [
   {
@@ -37,26 +40,17 @@ const BOOKS = [
   },
 ];
 
-const Dashboard = ({ onLogout }) => {
+const Dashboard = () => {
+  const { user, handleLogout } = useContext(AuthenticationContext);
+  const { toggleLoading } = useContext(APIContext);
+
+  const userName = user.email.split("@")[0];
+
   const [books, setBooks] = useState([]);
   const [filterYear, setFilterYear] = useState("2023");
-  console.log("In Dashboard!");
 
   useEffect(() => {
-    console.log("useEffect on mount");
-    debugger;
-    // const bookStoraged = JSON.parse(localStorage.getItem("books"));
-
-    // if (bookStoraged) {
-    //   setBooks(
-    //     bookStoraged.map((book) => ({
-    //       ...book,
-    //       dateRead: new Date(book.dateRead),
-    //     }))
-    //   );
-    // } else {
-    //   localStorage.setItem("books", JSON.stringify(BOOKS));
-    // }
+    toggleLoading(true);
 
     fetch("https://63a44a012a73744b0072f847.mockapi.io/api/books/Books", {
       headers: {
@@ -70,8 +64,12 @@ const Dashboard = ({ onLogout }) => {
           dateRead: new Date(book.dateRead),
         }));
         setBooks(booksMapped);
+        toggleLoading(false);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        console.log(error);
+        toggleLoading(false);
+      });
   }, []);
 
   const navigation = useNavigate();
@@ -87,16 +85,19 @@ const Dashboard = ({ onLogout }) => {
   };
 
   const onLogoutHandler = () => {
-    onLogout();
+    handleLogout();
     navigation("/login");
   };
 
   return (
     <>
       <Row className="me-2 my-4">
-        <Col />
+        <Col>
+          <h4 className="text-left m-3">Hola {userName}</h4>
+        </Col>
         <Col md={3} className="d-flex justify-content-end">
-          <Button variant="primary" onClick={onLogoutHandler}>
+          <ToggleTheme />
+          <Button className="ms-4" variant="primary" onClick={onLogoutHandler}>
             Cerrar sesión
           </Button>
         </Col>

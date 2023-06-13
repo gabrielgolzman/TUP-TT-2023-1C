@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 
 import NewBook from "../NewBook/NewBook";
 import BooksFilter from "../BookFilter/BookFilter";
@@ -44,6 +44,8 @@ const Dashboard = () => {
   const { user, handleLogout } = useContext(AuthenticationContext);
   const { toggleLoading } = useContext(APIContext);
 
+  console.log("In Dashboard");
+
   const userName = user.email.split("@")[0];
 
   const [books, setBooks] = useState([]);
@@ -74,11 +76,14 @@ const Dashboard = () => {
 
   const navigation = useNavigate();
 
-  const addBookHandler = (book) => {
-    const newBooksArray = [book, ...books];
-    setBooks(newBooksArray);
-    localStorage.setItem("books", JSON.stringify(newBooksArray));
-  };
+  const addBookHandler = useCallback(
+    (book) => {
+      const newBooksArray = [book, ...books];
+      setBooks(newBooksArray);
+      localStorage.setItem("books", JSON.stringify(newBooksArray));
+    },
+    [books]
+  );
 
   const filterYearChanged = (year) => {
     setFilterYear(year);

@@ -1,8 +1,10 @@
 import "./Books.css";
 
 import BookItem from "../BookItem/BookItem";
+import { memo } from "react";
 
-const Books = ({ books, filterYear }) => {
+const Books = memo(({ books, filterYear }) => {
+  console.log("In Books");
   if (books.length === 0) {
     return <></>;
   }
@@ -28,6 +30,6 @@ const Books = ({ books, filterYear }) => {
       )}
     </div>
   );
-};
+});
 
 export default Books;

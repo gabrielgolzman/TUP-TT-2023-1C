@@ -1,9 +1,10 @@
 import "./NewBook.css";
 
 import BookForm from "../BookForm/BookForm";
-import { useState } from "react";
+import { memo, useState } from "react";
 
 const NewBook = ({ onBookAdded }) => {
+  console.log("In New Book");
   const [showForm, setShowForm] = useState(false);
 
   const onBookAddedHandler = (book) => {
@@ -29,4 +30,4 @@ const NewBook = ({ onBookAdded }) => {
   );
 };
 
-export default NewBook;
+export default memo(NewBook);

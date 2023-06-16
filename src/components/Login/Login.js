@@ -5,8 +5,9 @@ import { useNavigate } from "react-router";
 import { AuthenticationContext } from "../services/authentication/authentication.context";
 import ToggleTheme from "../ui/ToggleTheme";
 import { ThemeContext } from "../services/theme/theme.context";
-import useTranslate from "../translations/useTranslate";
+import useTranslate from "../custom/translations/useTranslate";
 import ComboLanguage from "../ComboLanguage/ComboLanguage";
+import useWindowSize from "../custom/windowSize/useWindowSize";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -23,6 +24,7 @@ const Login = ({ onLogin }) => {
 
   const navigation = useNavigate();
 
+  const { width, height } = useWindowSize();
   const translate = useTranslate();
 
   const emailChangeHandler = (e) => {
@@ -59,6 +61,8 @@ const Login = ({ onLogin }) => {
   return (
     <div className="login-container">
       <div className={`login-box ${theme === "dark" && "login-box-dark"}`}>
+        <p>Width: {width}</p>
+        <p>Height: {height}</p>
         <ComboLanguage />
         <h4 className={`${email.length === 0 && "red-text"}`}>
           {translate("welcome")}

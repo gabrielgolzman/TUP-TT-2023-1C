@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { dictionary_translations } from "./dictionary_translations";
-import { TranslationContext } from "../services/translation/translation.context";
+import { TranslationContext } from "../../services/translation/translation.context";
 
 const useTranslate = () => {
   const { language } = useContext(TranslationContext);

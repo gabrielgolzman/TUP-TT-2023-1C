@@ -5,6 +5,9 @@ import { useNavigate } from "react-router";
 import { AuthenticationContext } from "../services/authentication/authentication.context";
 import ToggleTheme from "../ui/ToggleTheme";
 import { ThemeContext } from "../services/theme/theme.context";
+import useWindowSize from "../custom/useWindowSize/useWindowSize";
+import ComboLanguage from "../ui/ComboLanguage/ComboLanguage";
+import useTranslation from "../custom/useTranslation/useTranslation";
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState("");
@@ -18,6 +21,9 @@ const Login = ({ onLogin }) => {
 
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
+
+  const { width, height } = useWindowSize();
+  const translate = useTranslation();
 
   const navigation = useNavigate();
 
@@ -55,8 +61,9 @@ const Login = ({ onLogin }) => {
   return (
     <div className="login-container">
       <div className={`login-box ${theme === "dark" && "login-box-dark"}`}>
+        <ComboLanguage />
         <h4 className={`${email.length === 0 && "red-text"}`}>
-          ¡Bienvenidos a Book Champions!
+          {translate("welcome")}
         </h4>
         <div className="input-container">
           <input
@@ -72,14 +79,14 @@ const Login = ({ onLogin }) => {
         <div className="input-container">
           <input
             className="input-control"
-            placeholder="Password"
+            placeholder={translate("password")}
             type="password"
             ref={passwordRef}
           />
         </div>
         {errors[1].isError && <p>{errors[1].text}</p>}
         <button onClick={signInHandler} className="signin-button" type="button">
-          Iniciar sesión
+          {translate("login")}
         </button>
         <ToggleTheme />
       </div>

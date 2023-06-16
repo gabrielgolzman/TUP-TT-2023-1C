@@ -7,6 +7,7 @@ import App from "./App";
 import { AuthenticationContextProvider } from "./components/services/authentication/authentication.context";
 import { ThemeContextProvider } from "./components/services/theme/theme.context";
 import { APIContextProvider } from "./components/services/api/api.context";
+import TranslationContextProvider from "./components/services/translation/translation.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -14,7 +15,9 @@ root.render(
     <AuthenticationContextProvider>
       <ThemeContextProvider>
         <APIContextProvider>
-          <App />
+          <TranslationContextProvider>
+            <App />
+          </TranslationContextProvider>
         </APIContextProvider>
       </ThemeContextProvider>
     </AuthenticationContextProvider>
